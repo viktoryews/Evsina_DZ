@@ -1,0 +1,23 @@
+[
+  {
+    "id": "bbad5c84-b378-4cff-b7fd-0cd0dcf47b2a",
+    "name": "Lew",
+    "lastName": "Pertow",
+    "age": 11,
+    "city": "Moscow"
+  },
+  {
+    "id": "0e3dd437-7be8-4f9c-a4e5-8921e8b9efbb",
+    "name": "Vladislav",
+    "lastName": "Gavrilow",
+    "age": 30,
+    "city": "Nowocherkassk"
+  },
+  {
+    "id": "0e3dd437-7be8-4f9c-a4e5-8921e8b9efbb",
+    "name": "Arcadiy",
+    "lastName": "Sidorow",
+    "age": 37,
+    "city": "Novocherkassk"
+  }
+]
