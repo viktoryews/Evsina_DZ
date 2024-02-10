@@ -1,26 +1,21 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const Joi = require('joi');
 const idUniq = require('uuid');
-
+const uuidValidate = require('uuid-validate');
+const {userSchema, idSchema} = require('./validation/sheme');
+const {checkBody, checkParams} = require('./validation/validator');
 const app = express();
 app.use(express.json());
 
 const pathFile = path.join(__dirname, 'users.json');
 
 const port = 3000;
-const id = idUniq.v4();
 
-/**
- * Схема вадидации
-*/ 
-const userSchema = Joi.object({
-    name: Joi.string().min(3).required(),
-    lastName: Joi.string().min(5).required(),
-    age: Joi.number().min(0).max(100).required(),
-    city: Joi.string().min(2),
-});
+const id = idUniq.v4();
+const isValid = uuidValidate(id);
+console.log(`The UUID ${id} is ${isValid ? 'valid' : 'invalid'}.`);
+
 
 /**
  * Получение всех пользователей
@@ -32,8 +27,8 @@ app.get('/users', (req, res) => {
 /**
  * Получение конкретного пользователя по id
  */
-app.get('/users/:id', (req, res) => {
-    
+app.get('/users/:id', checkParams(idSchema), (req, res) => {
+
     const users = JSON.parse(fs.readFileSync(pathFile));
     const user = users.find(user => user.id === req.params.id);
     if (user) {
@@ -48,22 +43,19 @@ app.get('/users/:id', (req, res) => {
 /**
  * Добавление нового пользователя
  */
-app.post('/users', (req, res) => {   
+app.post('/users',checkBody(userSchema), (req, res) => {
 
-    const result = userSchema.validate(req.body);
+    const users = JSON.parse(fs.readFileSync(pathFile));
 
-    if (result.error) {
-        return res.status(400).send({error: result.error.message});
-    }
-
-    const users = JSON.parse(fs.readFileSync(pathFile)); 
-
+    // let id = Number(users.length +1);
+    // console.log(id);
     users.push(
         {
-            id: id,
+            id,
             ...req.body,
         }
     );
+
     fs.writeFileSync(pathFile, JSON.stringify(users, null, 2));
     res.send({id});
 });
@@ -71,13 +63,8 @@ app.post('/users', (req, res) => {
 /**
  * Изменение конкретного пользователя
  */
-app.put('/users/:id', (req, res) => {
+app.put('/users/:id', checkParams(idSchema), checkBody(userSchema), (req, res) => {
 
-    const result = userSchema.validate(req.body);
-
-    if (result.error) {
-        return res.status(400).send({error: result.error.message});
-    }
     const users = JSON.parse(fs.readFileSync(pathFile));
     const user = users.find(user => user.id === req.params.id);
     if (user) {
@@ -97,7 +84,8 @@ app.put('/users/:id', (req, res) => {
 /**
  *      Удаление конкретного пользователя
  */
-app.delete('/users/:id', (req, res) => {
+app.delete('/users/:id', checkParams(idSchema), (req, res) => {
+
     const users = JSON.parse(fs.readFileSync(pathFile));
     const user = users.find(user => user.id === req.params.id);
     if (user) {
