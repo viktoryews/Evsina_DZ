@@ -47,8 +47,6 @@ app.post('/users',checkBody(userSchema), (req, res) => {
 
     const users = JSON.parse(fs.readFileSync(pathFile));
 
-    // let id = Number(users.length +1);
-    // console.log(id);
     users.push(
         {
             id,
