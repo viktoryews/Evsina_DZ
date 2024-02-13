@@ -1,10 +1,23 @@
 [
   {
     "id": "bbad5c84-b378-4cff-b7fd-0cd0dcf47b2a",
-    "name": "Lew",
-    "lastName": "Pertow",
-    "age": 11,
+    "name": "Vlad",
+    "lastName": "Gavrilow",
+    "age": 30,
+    "city": "Nowocherkassk"
+  },
+  {
+    "id": "2e388918-80ca-4ba0-abe4-f4beab9caf02",
+    "name": "David",
+    "lastName": "Sidorow",
+    "age": 35,
+    "city": "Moscow"
+  },
+  {
+    "id": "dcc939de-8011-4a86-b442-5d6e2b31f0ad",
+    "name": "Lena",
+    "lastName": "Smirnowa",
+    "age": 18,
     "city": "Moscow"
   }
 ]
-  
