@@ -11,7 +11,7 @@ const userSchema = Joi.object({
 });
 
 /**
- * Схема валидации body
+ * Схема валидации params
 */ 
 const idSchema = Joi.object({
     id: Joi.required(),
