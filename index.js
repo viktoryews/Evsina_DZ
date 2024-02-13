@@ -13,10 +13,6 @@ const pathFile = path.join(__dirname, 'users.json');
 
 const port = 3000;
 
-const id = idUniq.v4();
-const isValid = uuidValidate(id);
-console.log(`The UUID ${id} is ${isValid ? 'valid' : 'invalid'}.`);
-
 /**
  * Получение всех пользователей
  */
@@ -47,6 +43,10 @@ app.post('/users',checkBody(userSchema), (req, res) => {
 
     const users = JSON.parse(fs.readFileSync(pathFile));
 
+    const id = idUniq.v4();  
+    const isValid = uuidValidate(id);
+    console.log(`The UUID ${id} is ${isValid ? 'valid' : 'invalid'}.`);
+    
     users.push(
         {
             id,
