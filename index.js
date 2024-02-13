@@ -5,6 +5,7 @@ const idUniq = require('uuid');
 const uuidValidate = require('uuid-validate');
 const {userSchema, idSchema} = require('./validation/sheme');
 const {checkBody, checkParams} = require('./validation/validator');
+
 const app = express();
 app.use(express.json());
 
@@ -15,7 +16,6 @@ const port = 3000;
 const id = idUniq.v4();
 const isValid = uuidValidate(id);
 console.log(`The UUID ${id} is ${isValid ? 'valid' : 'invalid'}.`);
-
 
 /**
  * Получение всех пользователей
